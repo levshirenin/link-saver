@@ -34,7 +34,7 @@ export default function HomePage() {
             </svg>
             <div>
               <h1 className="text-2xl font-bold text-gray-700 dark:text-gray-100">Копилка полезных ресурсов</h1>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Коллекция полезных ссылок</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Коллекция полезных ссылок для Вас</p>
             </div>
           </div>
           <button
