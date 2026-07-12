@@ -3,8 +3,8 @@ import { createContext, useContext, useState, useEffect } from 'react'
 const ThemeContext = createContext()
 
 function getInitialDark() {
-  if (typeof window === 'undefined') return false
-  return localStorage.getItem('theme') === 'dark'
+  if (typeof window === 'undefined') return true
+  return localStorage.getItem('theme') !== 'light'
 }
 
 export function ThemeProvider({ children }) {
