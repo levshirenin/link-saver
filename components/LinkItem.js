@@ -1,10 +1,12 @@
+import { card } from './styles'
+
 export default function LinkItem({ link }) {
   return (
     <a
       href={link.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="bg-white/70 dark:bg-gray-800/80 border border-gray-200/60 dark:border-gray-700 rounded-lg p-4 hover:border-blue-400/60 dark:hover:border-blue-500 hover:bg-white dark:hover:bg-gray-800 transition-all block shadow-sm"
+      className={`${card} p-4 hover:border-blue-400/60 dark:hover:border-blue-500 hover:bg-white dark:hover:bg-gray-800 transition-all block`}
     >
       <div className="flex items-start gap-3">
         <img

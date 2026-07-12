@@ -1,15 +1,16 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import LinkItem from './LinkItem'
+import { card } from './styles'
 
 export default function LinkList({ links }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedTag, setSelectedTag] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('')
 
-  const allTags = [...new Set(links.flatMap(link => link.tags || []))].sort()
-  const allCategories = [...new Set(links.map(link => link.category).filter(Boolean))].sort()
+  const allTags = useMemo(() => [...new Set(links.flatMap(link => link.tags || []))].sort(), [links])
+  const allCategories = useMemo(() => [...new Set(links.map(link => link.category).filter(Boolean))].sort(), [links])
 
-  const filteredLinks = links.filter(link => {
+  const filteredLinks = useMemo(() => links.filter(link => {
     const matchesSearch =
       link.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       link.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -17,19 +18,19 @@ export default function LinkList({ links }) {
     const matchesTag = selectedTag === '' || (link.tags && link.tags.includes(selectedTag))
     const matchesCategory = selectedCategory === '' || link.category === selectedCategory
     return matchesSearch && matchesTag && matchesCategory
-  })
+  }), [links, searchTerm, selectedTag, selectedCategory])
 
-  const groupedLinks = selectedCategory
+  const groupedLinks = useMemo(() => selectedCategory
     ? { [selectedCategory]: filteredLinks }
     : allCategories.reduce((acc, cat) => {
         const catLinks = filteredLinks.filter(l => l.category === cat)
         if (catLinks.length > 0) acc[cat] = catLinks
         return acc
-      }, {})
+      }, {}), [filteredLinks, selectedCategory, allCategories])
 
   return (
     <div>
-      <div className="bg-white/70 dark:bg-gray-800/80 border border-gray-200/60 dark:border-gray-700 rounded-lg p-4 mb-6 shadow-sm">
+      <div className={`${card} p-4 mb-6`}>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
             <label className="block text-gray-600 dark:text-gray-300 text-sm font-medium mb-1">Поиск</label>
@@ -86,7 +87,7 @@ export default function LinkList({ links }) {
       ))}
 
       {filteredLinks.length === 0 && (
-        <div className="bg-white/70 dark:bg-gray-800/80 border border-gray-200/60 dark:border-gray-700 rounded-lg p-8 text-center text-gray-500 dark:text-gray-400 shadow-sm">
+        <div className={`${card} p-8 text-center text-gray-500 dark:text-gray-400`}>
           Ссылки не найдены.
         </div>
       )}

@@ -1,17 +1,22 @@
 import { useState, useEffect } from 'react'
 import LinkList from '../components/LinkList'
 import { useTheme } from '../components/ThemeContext'
+import { card } from '../components/styles'
 
 export default function HomePage() {
   const [links, setLinks] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const { dark, toggle } = useTheme()
 
   useEffect(() => {
     fetch(process.env.NEXT_PUBLIC_BASE_PATH + '/links.json')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        return res.json()
+      })
       .then(data => setLinks(data))
-      .catch(err => console.error('Error:', err))
+      .catch(err => setError(err.message))
       .finally(() => setLoading(false))
   }, [])
 
@@ -19,6 +24,17 @@ export default function HomePage() {
     return (
       <div className="min-h-screen bg-[#eef0f2] dark:bg-gray-900 flex items-center justify-center transition-colors">
         <div className="text-xl text-gray-500 dark:text-gray-400">Загрузка...</div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-[#eef0f2] dark:bg-gray-900 flex items-center justify-center transition-colors">
+        <div className={`text-center ${card} p-8 max-w-md`}>
+          <div className="text-red-500 dark:text-red-400 text-lg font-semibold mb-2">Ошибка загрузки</div>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{error}</p>
+        </div>
       </div>
     )
   }
