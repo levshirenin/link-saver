@@ -2,7 +2,7 @@
 
 Коллекция полезных ссылок для повседневного использования.
 
-[Демо](https://levshirenin.github.io/link-saver/)
+[Открыть приложение](https://levshirenin.github.io/link-saver/)
 
 ## Функции
 
