@@ -8,7 +8,7 @@ export default function HomePage() {
   const { dark, toggle } = useTheme()
 
   useEffect(() => {
-    fetch('/links.json')
+    fetch(process.env.NEXT_PUBLIC_BASE_PATH + '/links.json')
       .then(res => res.json())
       .then(data => setLinks(data))
       .catch(err => console.error('Error:', err))
