@@ -1,0 +1,21 @@
+{
+  "name": "link-saver",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "deploy": "npm run build && git add out/"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.3.2",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "postcss": "latest",
+    "tailwindcss": "latest"
+  }
+}
