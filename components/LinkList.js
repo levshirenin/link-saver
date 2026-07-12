@@ -8,7 +8,7 @@ export default function LinkList({ links }) {
   const [selectedCategory, setSelectedCategory] = useState('')
 
   const allTags = useMemo(() => [...new Set(links.flatMap(link => link.tags || []))].sort(), [links])
-  const allCategories = useMemo(() => [...new Set(links.map(link => link.category).filter(Boolean))].sort(), [links])
+  const allCategories = useMemo(() => [...new Set(links.map(link => link.category).filter(Boolean))], [links])
 
   const filteredLinks = useMemo(() => links.filter(link => {
     const matchesSearch =
